@@ -2,7 +2,7 @@
 
 This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Headless UI's components](https://headlessui.com).
 
-- [x] Menu (Dropdown)
+- [x] [Menu (Dropdown)](#menu-dropdown)
 - [ ] Listbox (Select)
 - [ ] Combobox (Autocomplete)
 - [ ] Switch (Toggle)
