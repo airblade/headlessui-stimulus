@@ -41,36 +41,36 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
 
 ```html
 <div data-controller="menu">
- <button
-   type="button"
-   data-menu-target="button"
-   data-action="click->menu#toggle keydown->menu#keydownButton"
- >
-   ...
- </button>
- <div
-   role="menu"
-   tabindex="-1"
-   data-menu-target="menuItems"
-   data-action="keydown->menu#keydownItems"
-   data-transition-enter="transition ease-out duration-100"
-   data-transition-enter-start="transform opacity-0 scale-95"
-   data-transition-enter-end="transform opacity-100 scale-100"
-   data-transition-leave="transition ease-in duration-75"
-   data-transition-leave-start="transform opacity-100 scale-100"
-   data-transition-leave-end="transform opacity-0 scale-95"
- >
-   <a
-     href="..."
-     role="menuitem"
-     tabindex="-1"
-     data-menu-target="menuItem"
-     data-action="keydown.space->menu#clickItem"
-   >
-     ...
-   </a>
-   <!-- more menu item links -->
- </div>
+    <button
+        type="button"
+        data-menu-target="button"
+        data-action="click->menu#toggle keydown->menu#keydownButton"
+    >
+        ...
+    </button>
+    <div
+        role="menu"
+        tabindex="-1"
+        data-menu-target="menuItems"
+        data-action="keydown->menu#keydownItems"
+        data-transition-enter="transition ease-out duration-100"
+        data-transition-enter-start="transform opacity-0 scale-95"
+        data-transition-enter-end="transform opacity-100 scale-100"
+        data-transition-leave="transition ease-in duration-75"
+        data-transition-leave-start="transform opacity-100 scale-100"
+        data-transition-leave-end="transform opacity-0 scale-95"
+    >
+        <a
+            href="..."
+            role="menuitem"
+            tabindex="-1"
+            data-menu-target="menuItem"
+            data-action="keydown.space->menu#clickItem"
+        >
+            ...
+        </a>
+        <!-- more menu item links -->
+    </div>
 </div>
 ```
 
