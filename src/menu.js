@@ -53,9 +53,9 @@ export default class extends Controller {
     })
   }
 
-  down(event) {
+  down(event, wrap) {
     if (this.isOpen()) {
-      this.indexValue = this.indexOf(this.activeMenuItemSucc())
+      this.indexValue = this.indexOf(this.activeMenuItemSucc(wrap))
     }
     else {
       this.open(event)
@@ -63,9 +63,9 @@ export default class extends Controller {
     }
   }
 
-  up(event) {
+  up(event, wrap) {
     if (this.isOpen()) {
-      this.indexValue = this.indexOf(this.activeMenuItemPrev())
+      this.indexValue = this.indexOf(this.activeMenuItemPrev(wrap))
     }
     else {
       this.open(event)
@@ -100,10 +100,10 @@ export default class extends Controller {
   keydownButton(event) {
     switch (event.key.toLowerCase()) {
       case 'arrowup':
-        this.up(event)
+        this.up(event, false)
         break
       case 'arrowdown':
-        this.down(event)
+        this.down(event, false)
         break
 
     }
@@ -116,14 +116,14 @@ export default class extends Controller {
         this.close()
         break
       case 'arrowup':
-        this.up(event)
+        this.up(event, false)
         break
       case 'arrowdown':
-        this.down(event)
+        this.down(event, false)
         break
       case 'tab':
         event.preventDefault()
-        this.down(event)
+        this.down(event, true)
         break
       case 'home':
         this.first()
@@ -153,17 +153,33 @@ export default class extends Controller {
     return this.menuItemTargets[this.indexValue]
   }
 
-  activeMenuItemSucc() {
-    return this.activeMenuItems()[
-      (this.activeIndex() + 1) % this.activeMenuItems().length
-    ]
+  activeMenuItemSucc(wrap) {
+    if (wrap) {
+      return this.activeMenuItems()[
+        (this.activeIndex() + 1) % this.activeMenuItems().length
+      ]
+    }
+    else {
+      return this.activeMenuItems()[this.activeIndex() + 1] ||
+             this.activeMenuItems()[this.activeIndex()]
+    }
   }
 
-  activeMenuItemPrev(menuItem) {
-    return this.activeMenuItems()[
-      (this.activeIndex() - 1 + this.activeMenuItems().length) %
-        this.activeMenuItems().length
-    ]
+  activeMenuItemPrev(wrap) {
+    if (wrap) {
+      return this.activeMenuItems()[
+        (this.activeIndex() - 1 + this.activeMenuItems().length) %
+          this.activeMenuItems().length
+      ]
+    }
+    else {
+      if (this.activeIndex() == 0) {
+        return this.activeMenuItems()[0]
+      }
+      else {
+        return this.activeMenuItems()[this.activeIndex() - 1]
+      }
+    }
   }
 
   activeMenuItems() {

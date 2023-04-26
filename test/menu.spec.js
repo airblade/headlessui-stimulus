@@ -98,6 +98,45 @@ test('up arrow when menu is open focuses previous item', async ({ page }) => {
 })
 
 
+test('down arrow when menu is open skips disabled items', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('ArrowDown')
+  await page.keyboard.press('ArrowDown')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=3')).toBeFocused()
+})
+
+
+test('up arrow when menu is open skips disabled items', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('End')
+  await page.keyboard.press('ArrowUp')
+  await page.keyboard.press('ArrowUp')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=1')).toBeFocused()
+})
+
+
+test('down arrow when menu is open does not wrap', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('ArrowDown')
+  await page.keyboard.press('ArrowDown')
+  await page.keyboard.press('ArrowDown')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=4')).toBeFocused()
+  await page.keyboard.press('ArrowDown')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=4')).toBeFocused()
+})
+
+
+test('up arrow when menu is open does not wrap', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('ArrowUp')
+  await page.keyboard.press('ArrowUp')
+  await page.keyboard.press('ArrowUp')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=0')).toBeFocused()
+  await page.keyboard.press('ArrowUp')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=0')).toBeFocused()
+})
+
+
 test('home when menu is open focuses first item', async ({ page }) => {
   await page.locator('[data-menu-target="button"]').click()
   await page.keyboard.press('Home')
@@ -135,4 +174,15 @@ test('letter when menu is open focuses first item matching letter', async ({ pag
   await page.locator('[data-menu-target="button"]').click()
   await page.keyboard.type('m')
   await expect(page.locator('[data-menu-target="menuItem"]').filter({hasText: 'Move'})).toBeFocused()
+})
+
+
+test('focus is trapped when menu is open', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Tab')
+  // tab wraps around
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=0')).toBeFocused()
 })
