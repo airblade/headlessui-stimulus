@@ -1,48 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import { enter, leave } from 'el-transition'
 
-/*
-
-Headless UI: Menu
-
-https://headlessui.com/react/menu
-
-Expects the following markup (omitting the classes and ARIA attributes).
-The `data-transition-*` attributes are optional.
-
-   <div data-controller="menu">
-     <button
-       type="button"
-       data-menu-target="button"
-       data-action="click->menu#toggle keydown->menu#keydownButton"
-     >
-       ...
-     </button>
-     <div
-       role="menu"
-       tabindex="-1"
-       data-menu-target="menuItems"
-       data-action="keydown->menu#keydownItems"
-       data-transition-enter="transition ease-out duration-100"
-       data-transition-enter-start="transform opacity-0 scale-95"
-       data-transition-enter-end="transform opacity-100 scale-100"
-       data-transition-leave="transition ease-in duration-75"
-       data-transition-leave-start="transform opacity-100 scale-100"
-       data-transition-leave-end="transform opacity-0 scale-95"
-     >
-       <a
-         href="..."
-         role="menuitem"
-         tabindex="-1"
-         data-menu-target="menuItem"
-         data-action="keydown.space->menu#clickItem"
-       >
-         ...
-       </a>
-     </div>
-   </div>
-
-*/
 export default class extends Controller {
 
   static targets = ['button', 'menuItems', 'menuItem']
@@ -50,15 +8,10 @@ export default class extends Controller {
 
   connect() {
     this.boundCloseOnClickOutsideElement = this.closeOnClickOutsideElement.bind(this)
-    this.boundCloseOnEscape = this.closeOnEscape.bind(this)
   }
 
   closeOnClickOutsideElement(event) {
     if (!this.element.contains(event.target)) this.close()
-  }
-
-  closeOnEscape(event) {
-    if (event.key === 'Escape') this.close()
   }
 
   indexValueChanged(value) {
@@ -85,7 +38,6 @@ export default class extends Controller {
 
     enter(this.menuItemsTarget)
 
-    window.addEventListener('keydown', this.boundCloseOnEscape)
     window.addEventListener('click', this.boundCloseOnClickOutsideElement)
     // Stop this (click) event from triggering the listener we just
     // added to the window.
@@ -94,7 +46,6 @@ export default class extends Controller {
 
   close() {
     window.removeEventListener('click', this.boundCloseOnClickOutsideElement)
-    window.removeEventListener('keydown', this.boundCloseOnEscape)
 
     this.element.removeAttribute('open')
     this.buttonTarget.setAttribute('aria-expanded', 'false')
@@ -141,9 +92,12 @@ export default class extends Controller {
     event.target.click()
   }
 
-  // key - lower case letter
-  clickMatchingItem(key) {
-    this.menuItemTargets.find(el => el.text[0].toLowerCase() === key)?.click()
+  // letter - lowercase
+  focusMatchingItem(letter) {
+    const i = this
+      .menuItemTargets
+      .findIndex(el => el.textContent.trim()[0].toLowerCase() === letter)
+    if (i != -1) this.indexValue = i
   }
 
   keydownButton(event) {
@@ -161,6 +115,9 @@ export default class extends Controller {
   keydownItems(event) {
     const key = event.key.toLowerCase()
     switch (key) {
+      case 'escape':
+        this.close()
+        break
       case 'arrowup':
         this.up(event)
         break
@@ -177,8 +134,8 @@ export default class extends Controller {
       case 'end':
         this.last()
         break
-      case /[a-z]/.test(key) && key:
-        this.clickMatchingItem(key)
+      case key.length == 1 && /[a-z]/.test(key) && key:
+        this.focusMatchingItem(key)
         break
     }
   }

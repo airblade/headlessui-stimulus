@@ -22,14 +22,20 @@
     "url": "https://github.com/airblade/headlessui-stimulus/issues"
   },
   "homepage": "https://github.com/airblade/headlessui-stimulus",
-  "peerDependencies": {
-    "@hotwired/stimulus": "^3.0.0",
+  "dependencies": {
     "el-transition": "0.0.7"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "@hotwired/stimulus": "^3.0.0"
   },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@playwright/test": "^1.32.3",
+    "http-server": "^14.1.1"
+  },
   "scripts": {
+    "start": "http-server -p 8000",
+    "test": "npx playwright test",
     "release": "git tag -a -m 'Version $npm_package_version' v$npm_package_version && git push && git push --tags && npm login && npm publish && echo 'Remember to update version on demo page'"
   }
 }

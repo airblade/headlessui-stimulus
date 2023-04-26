@@ -49,6 +49,7 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
         ...
     </button>
     <div
+        class="hidden"
         role="menu"
         tabindex="-1"
         data-menu-target="menuItems"
