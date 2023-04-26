@@ -39,9 +39,6 @@ export default class extends Controller {
     enter(this.menuItemsTarget)
 
     window.addEventListener('click', this.boundCloseOnClickOutsideElement)
-    // Stop this (click) event from triggering the listener we just
-    // added to the window.
-    if (event.type === 'click') event.stopPropagation()
   }
 
   close() {
