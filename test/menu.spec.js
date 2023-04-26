@@ -92,9 +92,24 @@ test('down arrow when menu is open focuses next item', async ({ page }) => {
 
 test('up arrow when menu is open focuses previous item', async ({ page }) => {
   await page.locator('[data-menu-target="button"]').click()
-  await page.keyboard.press('ArrowDown')
+  await page.keyboard.press('End')
   await page.keyboard.press('ArrowUp')
-  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=0')).toBeFocused()
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=-2')).toBeFocused()
+})
+
+
+test('tab when menu is open focuses next item', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('Tab')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=1')).toBeFocused()
+})
+
+
+test('shift+tab when menu is open focuses previous item', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('End')
+  await page.keyboard.press('Shift+Tab')
+  await expect(page.locator('[data-menu-target="menuItem"]').locator('nth=-2')).toBeFocused()
 })
 
 

@@ -123,7 +123,7 @@ export default class extends Controller {
         break
       case 'tab':
         event.preventDefault()
-        this.down(event, true)
+        event.shiftKey ? this.up(event, true) : this.down(event, true)
         break
       case 'home':
         this.first()
