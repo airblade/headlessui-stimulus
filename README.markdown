@@ -37,7 +37,7 @@ Register the components with your Stimulus application:
 
 See [Headless UI: Menu](https://headlessui.com/react/menu).
 
-Use the following markup (the classes and ARIA attributes are omitted for clarity).  The `data-transition-*` attributes are optional.
+Use the following markup (the classes and ARIA attributes are omitted for clarity).
 
 ```html
 <div data-controller="menu">
@@ -54,12 +54,6 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
         tabindex="-1"
         data-menu-target="menuItems"
         data-action="keydown->menu#keydownItems"
-        data-transition-enter="transition ease-out duration-100"
-        data-transition-enter-start="transform opacity-0 scale-95"
-        data-transition-enter-end="transform opacity-100 scale-100"
-        data-transition-leave="transition ease-in duration-75"
-        data-transition-leave-start="transform opacity-100 scale-100"
-        data-transition-leave-end="transform opacity-0 scale-95"
     >
         <a
             href="..."
