@@ -99,6 +99,7 @@ export default class extends Controller {
 
   clickItem(target) {
     target.click()
+    this.close()
   }
 
   // letter - lowercase
