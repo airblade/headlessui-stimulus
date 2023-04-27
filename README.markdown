@@ -19,7 +19,7 @@ This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Head
 ## Installation
 
 ```
-yarn add headlessui-stimulus
+bin/importmap pin headlessui-stimulus
 ```
 
 
