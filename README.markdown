@@ -1,5 +1,7 @@
 # Headless UI - Stimulus
 
+Status: just started and a long way to go :)
+
 This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Headless UI's components](https://headlessui.com).
 
 - [x] [Menu (Dropdown)](#menu-dropdown)
