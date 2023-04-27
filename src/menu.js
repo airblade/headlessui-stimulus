@@ -154,6 +154,12 @@ export default class extends Controller {
     }
   }
 
+  activate(event) {
+    if (event.target.hasAttribute('disabled')) return
+    if (!this.menuItemTargets.includes(event.target)) return
+    this.indexValue = this.indexOf(event.target)
+  }
+
   indexOf(menuItem) {
     return this.menuItemTargets.indexOf(menuItem)
   }

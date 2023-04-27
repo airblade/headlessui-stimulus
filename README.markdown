@@ -60,7 +60,7 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
             role="menuitem"
             tabindex="-1"
             data-menu-target="menuItem"
-            data-action="keydown.space->menu#clickItem"
+            data-action="mouseover->menu#activate"
         >
             ...
         </a>
