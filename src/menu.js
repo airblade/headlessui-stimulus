@@ -97,8 +97,8 @@ export default class extends Controller {
     )
   }
 
-  clickItem(event) {
-    event.target.click()
+  clickItem(target) {
+    target.click()
   }
 
   // letter - lowercase
@@ -142,6 +142,10 @@ export default class extends Controller {
         break
       case 'end':
         this.last()
+        break
+      case ' ':
+      case 'enter':
+        this.clickItem(event.target)
         break
       case key.length == 1 && /[a-z]/.test(key) && key:
         this.focusMatchingItem(key)
