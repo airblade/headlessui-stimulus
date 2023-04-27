@@ -38,6 +38,15 @@ test('mouse click outside open menu closes menu', async ({ page }) => {
 })
 
 
+test('hover over menu item activates it', async ({ page }) => {
+  await page.locator('[data-menu-target="button"]').click()
+  await page.getBy
+
+  await page.locator('[data-menu-target="menuItem"]').filter({hasText: 'Move'}).hover()
+  await expect(page.locator('[data-menu-target="menuItem"]').filter({hasText: 'Move'})).toBeFocused()
+})
+
+
 test('enter on button opens menu', async ({ page }) => {
   await page.locator('[data-menu-target="button"]').focus()
   await page.keyboard.press('Enter')
