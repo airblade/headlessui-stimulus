@@ -5,6 +5,7 @@ export default class extends Controller {
 
   static targets = ['button', 'menuItems', 'menuItem']
   static values  = {index: Number}
+  static classes = ['active', 'inactive']
 
   connect() {
     this.boundCloseOnClickOutsideElement = this.closeOnClickOutsideElement.bind(this)
@@ -15,9 +16,20 @@ export default class extends Controller {
   }
 
   indexValueChanged(value) {
-    this.menuItemTargets.forEach(
-      (el, i) => el.dataset.headlessuiState = i == value ? 'active' : ''
-    )
+    this.menuItemTargets.forEach((el, i) => {
+      if (i == value) {
+        el.dataset.headlessuiState = 'active'
+        if (this.hasActiveClass) el.classList.add(...this.activeClasses)
+        if (this.hasInactiveClass) el.classList.remove(...this.inactiveClasses)
+      }
+      else {
+        el.dataset.headlessuiState = ''
+        if (this.hasActiveClass) el.classList.remove(...this.activeClasses)
+        if (this.hasInactiveClass) el.classList.add(...this.inactiveClasses)
+      }
+    })
+
+    if (this.menuItemTargets[value] == undefined) console.log(value)
     this.menuItemTargets[value].focus()
   }
 

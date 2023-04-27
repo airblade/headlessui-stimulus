@@ -69,6 +69,21 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
 </div>
 ```
 
+The component exposes information about its current state via `data-headlessui-state` attributes which you can use to conditionally apply different styles.
+
+If you use Tailwind CSS and its [@headlessui/tailwindcss](https://github.com/tailwindlabs/headlessui/tree/main/packages/%40headlessui-tailwindcss) plugin, you can use modifiers like `ui-open:*` and `ui-active:*`.
+
+Alternatively you can specify classes for the active and inactive menu items like this:
+
+```html
+<div
+    data-controller="menu"
+    data-menu-active-class="..."
+    data-menu-inactive-class="..."
+>
+```
+
+
 ## Transitions
 
 Transitions are supported by each component.  Specify the transitions you want with these data attributes:
