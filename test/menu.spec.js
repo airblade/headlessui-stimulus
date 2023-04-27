@@ -175,22 +175,17 @@ test('end when menu is open focuses last item', async ({ page }) => {
 })
 
 
-test.skip('enter when menu is open activates current item', async ({ page }) => {
-  // I can't figure out how to test this
-  // https://stackoverflow.com/q/76111166/151007
+test('enter when menu is open activates current item', async ({ page }) => {
   await page.locator('[data-menu-target="button"]').click()
-
-  let clicked = false
-  page.locator('[data-menu-target="menuItem"]').locator('nth=0').once('click', event => {clicked = true})
-
   await page.keyboard.press('Enter')
-
-  await expect(clicked).toBeTruthy()
+  await expect(page).toHaveURL(/#edit/)
 })
 
 
 test.skip('space when menu is open activates current item', async ({ page }) => {
-  // Same problem as previous test.
+  await page.locator('[data-menu-target="button"]').click()
+  await page.keyboard.press('Space')
+  await expect(page).toHaveURL(/#edit/)
 })
 
 
