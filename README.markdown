@@ -1,6 +1,6 @@
 # Headless UI - Stimulus
 
-Status: just started and a long way to go :)
+Status: implementing the components as I need them.  Just started and a long way to go :)
 
 This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Headless UI's components](https://headlessui.com).
 
