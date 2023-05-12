@@ -11,6 +11,10 @@ export default class extends Controller {
     this.boundCloseOnClickOutsideElement = this.closeOnClickOutsideElement.bind(this)
   }
 
+  disconnect() {
+    window.removeEventListener('click', this.boundCloseOnClickOutsideElement)
+  }
+
   closeOnClickOutsideElement(event) {
     if (!this.element.contains(event.target)) this.close()
   }
@@ -29,7 +33,6 @@ export default class extends Controller {
       }
     })
 
-    if (this.menuItemTargets[value] == undefined) console.log(value)
     this.menuItemTargets[value].focus()
   }
 

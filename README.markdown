@@ -9,11 +9,13 @@ This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Head
 - [ ] Combobox (Autocomplete)
 - [ ] Switch (Toggle)
 - [ ] Disclosure
-- [ ] Dialog (Modal)
+- [x] [Dialog (Modal)](#dialog-modal)
 - [ ] Popover
 - [ ] Radio Group
 - [ ] Tabs
 - [x] [Transitions](#transitions)
+
+They all come with keyboard navigation and focus management, and automatically manage relevant ARIA attributes.
 
 
 ## Installation
@@ -25,7 +27,7 @@ bin/importmap pin headlessui-stimulus
 
 ## Usage
 
-Register the components with your Stimulus application:
+Register the components with your Stimulus application.  For example, to register the Menu (Dropdown) component:
 
 ```diff
   import { Application } from '@hotwired/stimulus'
@@ -34,6 +36,19 @@ Register the components with your Stimulus application:
   const application = Application.start()
 + application.register('menu', Menu)
 ```
+
+Note: you must have a `hidden` CSS class for elements to show and hide:
+
+```css
+.hidden {
+  display: none;
+}
+```
+
+If you use Tailwind CSS's [@headlessui/tailwindcss](https://github.com/tailwindlabs/headlessui/tree/main/packages/%40headlessui-tailwindcss) plugin, you can use modifiers like `ui-open:*` and `ui-active:*` to style these components.
+
+If you don't use the plugin, you can use the `data-headlessui-state` attributes directly to conditionally apply different styles.
+
 
 ## Menu (Dropdown)
 
@@ -71,11 +86,7 @@ Use the following markup (the classes and ARIA attributes are omitted for clarit
 </div>
 ```
 
-The component exposes information about its current state via `data-headlessui-state` attributes which you can use to conditionally apply different styles.
-
-If you use Tailwind CSS and its [@headlessui/tailwindcss](https://github.com/tailwindlabs/headlessui/tree/main/packages/%40headlessui-tailwindcss) plugin, you can use modifiers like `ui-open:*` and `ui-active:*`.
-
-Alternatively you can specify classes for the active and inactive menu items like this:
+Optionally you can specify classes for the active and inactive menu items like this:
 
 ```html
 <div
@@ -84,6 +95,53 @@ Alternatively you can specify classes for the active and inactive menu items lik
     data-menu-inactive-class="..."
 >
 ```
+
+
+## Dialog (Modal)
+
+See [Headless UI: Dialog](https://headlessui.com/react/dialog).
+
+Use the following markup (the classes and ARIA attributes are omitted for clarity).
+
+```html
+<div data-controller="dialog">
+    <!-- optional backdrop -->
+    <div data-dialog-target="backdrop"></div>
+
+    <div data-dialog-target="panel" data-action="keydown->dialog#keydown">
+        <h1 data-dialog-target="title">An important notice</h1>
+        <p data-dialog-target="description">Blah blah blah.</p>
+        ...
+        <button data-action="dialog#close">...</button>
+        ...
+    </div>
+</div>
+```
+
+To open the dialog:
+
+- either call `dialog#open` on the controller;
+- or set `data-dialog-open-value="true"` on the controller's element.
+
+To close the dialog:
+
+- either call `dialog#close` on the controller;
+- or set `data-dialog-open-value="false"` on the controller's element;
+- or click outside the panel;
+- or press <kbd>Escape</kbd>.
+
+If your dialog has a title and a description, use `data-dialog-target="title"` and `data-dialog-target="description"` to provide the most accessible experience.  This will link your title and description to the controller element via the `aria-labelledby` and `aria-describedby` attributes.
+
+When the dialog opens, the panel's first focusable element by DOM order receives focus.  To specify that a different element should receive focus initially, give it the data attribute `data-dialog-target="initialFocus"`.
+
+You can configure your dialog with the following attributes.  Declare them on the controller as `data-dialog-[name]-value`.
+
+| Name | Default | Description |
+|--|--|--|
+| open | `false` | Whether the dialog is open (`true`) or closed (`false`). |
+| unmount | `false` | On closing the dialog, whether to remove it from the DOM (`true`) or hide it (`false`). |
+
+You can specify transitions on the backdrop and the panel.
 
 
 ## Transitions
