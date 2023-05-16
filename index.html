@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>headless UI Stimulus Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "headlessui-stimulus": "https://ga.jspm.io/npm:headlessui-stimulus@0.0.3/src/index.js",
+          "el-transition": "https://ga.jspm.io/npm:el-transition@0.0.7/index.js",
+          "@hotwired/stimulus": "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.1/dist/stimulus.js"
+        }
+      }
+    </script>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
+    <script type="module">
+      import { Application } from "@hotwired/stimulus";
+      import { Menu } from "headlessui-stimulus";
+      import { Dialog } from "headlessui-stimulus";
+
+      const application = Application.start();
+      application.register('menu', Menu);
+      application.register('dialog', Dialog);
+    </script>
+  </head>
+  <body class="bg-gray-900">
+    <div class="font-sans antialiased">
+      <header class="sticky top-0 z-30 h-[72px] bg-gray-900 bg-opacity-50 backdrop-blur backdrop-filter firefox:bg-opacity-90">
+        <div class="mx-auto max-w-8xl xl:px-8">
+          <div class="flex items-center justify-between gap-x-4 border-b border-gray-800 px-4 py-5 sm:px-6 lg:px-8 xl:px-0">
+            <div>
+              <!-- Headless UI logo -->
+              <svg viewBox="0 0 184 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
+                <g clip-path="url(#logo-___clip0)">
+                  <path d="M49.779 10.41c-1.985 0-3.561.73-4.524 2.248V4.95h-3.152v20.437h3.152v-7.824c0-2.978 1.634-4.204 3.706-4.204 1.985 0 3.27 1.167 3.27 3.386v8.642h3.151v-8.963c0-3.795-2.334-6.014-5.603-6.014zM60.528 19.431h11.616c.058-.409.117-.876.117-1.314 0-4.204-2.977-7.707-7.326-7.707-4.582 0-7.705 3.357-7.705 7.678 0 4.38 3.123 7.678 7.938 7.678 2.86 0 5.05-1.197 6.392-3.182l-2.597-1.518c-.7 1.022-2.014 1.81-3.765 1.81-2.335 0-4.174-1.168-4.67-3.445zm-.03-2.57c.438-2.189 2.044-3.59 4.408-3.59 1.897 0 3.735 1.08 4.173 3.59H60.5zM85.777 10.79v2.072c-1.11-1.518-2.831-2.452-5.108-2.452-3.97 0-7.267 3.328-7.267 7.678 0 4.32 3.298 7.678 7.267 7.678 2.277 0 3.999-.934 5.108-2.481v2.102h3.152V10.789h-3.152zm-4.612 11.97c-2.626 0-4.611-1.957-4.611-4.672s1.985-4.671 4.611-4.671c2.627 0 4.612 1.956 4.612 4.671 0 2.715-1.985 4.671-4.612 4.671zM103.431 4.95v7.912c-1.109-1.518-2.831-2.452-5.108-2.452-3.969 0-7.267 3.328-7.267 7.678 0 4.32 3.298 7.678 7.267 7.678 2.277 0 3.999-.934 5.108-2.481v2.102h3.152V4.95h-3.152zM98.82 22.76c-2.627 0-4.612-1.957-4.612-4.672s1.985-4.671 4.612-4.671c2.626 0 4.611 1.956 4.611 4.671 0 2.715-1.985 4.671-4.611 4.671zM109.527 25.387h3.153V4.075h-3.153v21.312zM118.091 19.431h11.616c.058-.409.117-.876.117-1.314 0-4.204-2.977-7.707-7.326-7.707-4.582 0-7.705 3.357-7.705 7.678 0 4.38 3.123 7.678 7.938 7.678 2.86 0 5.049-1.197 6.392-3.182l-2.598-1.518c-.7 1.022-2.013 1.81-3.765 1.81-2.334 0-4.173-1.168-4.669-3.445zm-.03-2.57c.438-2.189 2.044-3.59 4.408-3.59 1.897 0 3.735 1.08 4.173 3.59h-8.581zM134.128 14.818c0-1.05.993-1.547 2.131-1.547 1.197 0 2.218.525 2.744 1.664l2.656-1.489c-1.022-1.927-3.007-3.036-5.4-3.036-2.977 0-5.341 1.722-5.341 4.467 0 5.225 7.851 3.766 7.851 6.364 0 1.168-1.08 1.635-2.481 1.635-1.605 0-2.772-.788-3.239-2.102l-2.715 1.576c.934 2.102 3.036 3.416 5.954 3.416 3.152 0 5.692-1.576 5.692-4.496 0-5.4-7.852-3.795-7.852-6.452zM145.968 14.818c0-1.05.993-1.547 2.131-1.547 1.196 0 2.218.525 2.743 1.664l2.656-1.489c-1.021-1.927-3.006-3.036-5.399-3.036-2.977 0-5.341 1.722-5.341 4.467 0 5.225 7.851 3.766 7.851 6.364 0 1.168-1.08 1.635-2.481 1.635-1.605 0-2.773-.788-3.24-2.102l-2.714 1.576c.934 2.102 3.035 3.416 5.954 3.416 3.152 0 5.691-1.576 5.691-4.496 0-5.4-7.851-3.795-7.851-6.452zM170.01 22.02c2.187 0 3.806-1.308 3.806-3.453v-6.69h-1.96v6.534c0 .966-.511 1.69-1.846 1.69s-1.847-.724-1.847-1.69v-6.535h-1.945v6.691c0 2.145 1.619 3.452 3.792 3.452zM175.865 11.876v9.944h1.96v-9.944h-1.96z" fill="#fff"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M177.046 7.107h-10.144a4.059 4.059 0 00-4.058 4.058v10.148a4.059 4.059 0 004.058 4.058h10.144a4.059 4.059 0 004.058-4.058V11.166a4.059 4.059 0 00-4.058-4.06zm-10.144-2.03a6.087 6.087 0 00-6.086 6.088v10.148a6.087 6.087 0 006.086 6.088h10.144a6.087 6.087 0 006.087-6.088V11.166a6.087 6.087 0 00-6.087-6.089h-10.144z" fill="#fff"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M166.902 7.107h10.144a4.059 4.059 0 014.058 4.058v10.148a4.059 4.059 0 01-4.058 4.058h-10.144a4.059 4.059 0 01-4.058-4.058V11.166a4.059 4.059 0 014.058-4.06zm-6.086 4.058a6.087 6.087 0 016.086-6.088h10.144a6.087 6.087 0 016.087 6.088v10.148a6.087 6.087 0 01-6.087 6.088h-10.144a6.087 6.087 0 01-6.086-6.088V11.166z" fill="#fff"></path>
+                  <path d="M6.495 19.883l19.52-6.518c-.39-2.44-.668-4.07-.99-5.314-.347-1.338-.622-1.696-.73-1.82a3.807 3.807 0 00-1.371-.996c-.152-.065-.578-.216-1.956-.133-1.458.088-3.372.386-6.403.866-3.03.48-4.943.789-6.356 1.155-1.337.347-1.696.623-1.82.731-.43.377-.77.845-.995 1.371-.065.152-.216.578-.133 1.957.088 1.458.386 3.373.866 6.404.134.85.255 1.61.368 2.297z" fill="url(#logo-___paint0_linear)"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.113 18.38C.185 12.516-.28 9.584.726 7.23a8.885 8.885 0 012.324-3.2C4.977 2.347 7.908 1.883 13.77.954 19.634.024 22.565-.44 24.92.566a8.882 8.882 0 013.198 2.324c1.684 1.928 2.148 4.86 3.076 10.725.929 5.864 1.393 8.797.387 11.15a8.883 8.883 0 01-2.323 3.2c-1.927 1.684-4.859 2.148-10.722 3.077-5.862.929-8.794 1.393-11.147.387a8.883 8.883 0 01-3.198-2.324c-1.684-1.928-2.148-4.86-3.077-10.725zm10.341 10.414c1.57-.095 3.592-.412 6.585-.886 2.994-.474 5.013-.798 6.537-1.193 1.475-.383 2.155-.756 2.594-1.14a5.711 5.711 0 001.493-2.057c.23-.536.375-1.298.283-2.82-.095-1.57-.412-3.593-.886-6.587-.474-2.994-.797-5.015-1.192-6.538-.383-1.476-.757-2.156-1.14-2.595a5.71 5.71 0 00-2.056-1.494c-.536-.23-1.298-.375-2.82-.283-1.57.095-3.591.412-6.585.886-2.993.475-5.013.798-6.536 1.193-1.476.383-2.155.757-2.594 1.14a5.712 5.712 0 00-1.494 2.057c-.229.536-.374 1.298-.282 2.82.095 1.571.411 3.593.886 6.587.474 2.994.797 5.015 1.192 6.538.383 1.476.756 2.156 1.14 2.595a5.711 5.711 0 002.056 1.494c.536.23 1.297.375 2.82.283z" fill="url(#logo-___paint1_linear)"></path>
+                </g>
+                <defs>
+                  <linearGradient id="logo-___paint0_linear" x1="12.69" y1="0" x2="17.769" y2="31.733" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#66E3FF"></stop>
+                    <stop offset="1" stop-color="#7064F9"></stop>
+                  </linearGradient>
+                  <linearGradient id="logo-___paint1_linear" x1="12.69" y1="0" x2="17.769" y2="31.733" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#66E3FF"></stop>
+                    <stop offset="1" stop-color="#7064F9"></stop>
+                  </linearGradient>
+                  <clipPath id="logo-___clip0">
+                    <path fill="#fff" d="M0 0h184v32H0z"></path>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="text-white text-xl">+</div>
+
+            <!-- Stimulus logo -->
+            <div class="w-36">
+              <svg class="logo" viewBox="0 0 372.93 60.02" xmlns="http://www.w3.org/2000/svg">
+                <g class="logo__icon" fill="#77e8b9">
+                  <path d="m51.56 33.56h-3.91a7.71 7.71 0 0 0 -3.29.9l-27 15.86a7.52 7.52 0 0 1 -3.28.9h-14.08v7.06a1.77 1.77 0 0 0 1.76 1.72h56.48a1.77 1.77 0 0 0 1.76-1.75v-7.06h-14.12a7.52 7.52 0 0 1 -3.28-.9l-8.08-4.74a1 1 0 0 1 0-1.79l3.84-2.25a3.27 3.27 0 0 1 3 0l3 1.74a7.57 7.57 0 0 0 3.29.9h12.35v-10.59z"></path>
+                  <path d="m51.56 15.88h-3.91a7.71 7.71 0 0 0 -3.29.9l-27 15.87a7.66 7.66 0 0 1 -3.28.9h-14.08v10.59h12.35a7.71 7.71 0 0 0 3.29-.9l27-15.87a7.66 7.66 0 0 1 3.28-.9h14.08v-10.59z"></path>
+                  <path d="m58.24 0h-56.48a1.76 1.76 0 0 0 -1.76 1.76v7.06h14.12a7.66 7.66 0 0 1 3.28.9l8.08 4.75a1 1 0 0 1 0 1.78l-3.84 2.26a3.27 3.27 0 0 1 -3 0l-3-1.75a7.71 7.71 0 0 0 -3.29-.9h-12.35v10.59h12.35a7.57 7.57 0 0 0 3.29-.9l27-15.86a7.52 7.52 0 0 1 3.28-.9h14.08v-7.06a1.76 1.76 0 0 0 -1.76-1.73z"></path>
+                </g>
+                <g class="logo__wordmark" fill="#fff">
+                  <path d="m108.44 6.17a8.2 8.2 0 0 0 -3.63-1.5 28.17 28.17 0 0 0 -4.91-.39h-9a30.08 30.08 0 0 0 -5 .39 11.92 11.92 0 0 0 -4.18 1.51 9.62 9.62 0 0 0 -3.12 3.13 14.16 14.16 0 0 0 -1.82 5.19l-1.46 8.42a13.23 13.23 0 0 0 -.1 5.37 5.9 5.9 0 0 0 1.92 3.24 8 8 0 0 0 3.7 1.61 27.31 27.31 0 0 0 5.21.44h8.49l-1.54 8.8h-8.65l.88-5.06-13.48 1.77-.54 3.22a14.25 14.25 0 0 0 -.12 5.33 5.74 5.74 0 0 0 1.84 3.24 7.61 7.61 0 0 0 3.61 1.6 28.34 28.34 0 0 0 5.16.42h10.22a30 30 0 0 0 5.25-.42 11.43 11.43 0 0 0 4.19-1.6 9.7 9.7 0 0 0 3.09-3.26 15.68 15.68 0 0 0 1.84-5.34l1.56-9a11.87 11.87 0 0 0 0-5.2 5.72 5.72 0 0 0 -2.16-3.08 8.86 8.86 0 0 0 -3.82-1.5 31.15 31.15 0 0 0 -5.16-.39h-8.49l1.43-8.28h7.77l-.74 4.45 13.24-1.67.54-3.15a11.46 11.46 0 0 0 0-5.18 5.73 5.73 0 0 0 -2.02-3.11z"></path>
+                  <path d="m150.46 4.83h-35.25l-2.1 12.05h10.73l-6.18 35.48h13.78l6.18-35.48h10.73z"></path>
+                  <path d="m154.4 4.83-8.29 47.53h13.79l8.28-47.53z"></path>
+                  <path d="m205.94 4.83-13.38 18.84-7.37-18.84h-10.29l-8.28 47.53h11.92l4.27-24.51 6.22 16.57 11.75-16.91-4.35 24.85h13.82l8.28-47.53z"></path>
+                  <path d="m246.88 4.83-6.24 35.89h-8.12l6.25-35.89h-13.77l-6.52 37.51a13.58 13.58 0 0 0 -.08 5.34 5.74 5.74 0 0 0 1.93 3.24 8.2 8.2 0 0 0 3.74 1.59 28.12 28.12 0 0 0 5.21.43h10.29a31.14 31.14 0 0 0 5.43-.43 11.7 11.7 0 0 0 4.3-1.59 9.62 9.62 0 0 0 3.09-3.24 15.83 15.83 0 0 0 1.81-5.34l6.5-37.51z"></path>
+                  <path d="m280.94 4.83h-13.79l-8.28 47.53h28.59l2.1-12.05h-14.8z"></path>
+                  <path d="m321.41 4.83-6.25 35.89h-8.11l6.25-35.89h-13.79l-6.51 37.51a13.58 13.58 0 0 0 -.08 5.34 5.69 5.69 0 0 0 1.93 3.24 8.16 8.16 0 0 0 3.74 1.59 28 28 0 0 0 5.21.43h10.28a31.18 31.18 0 0 0 5.44-.43 11.58 11.58 0 0 0 4.29-1.59 9.44 9.44 0 0 0 3.09-3.24 15.83 15.83 0 0 0 1.82-5.34l6.52-37.51z"></path>
+                  <path d="m372.65 9.26a5.74 5.74 0 0 0 -2-3.09 8.2 8.2 0 0 0 -3.65-1.5 28.09 28.09 0 0 0 -4.91-.39h-9a30.12 30.12 0 0 0 -5 .39 11.8 11.8 0 0 0 -4.17 1.51 9.55 9.55 0 0 0 -3.13 3.13 14 14 0 0 0 -1.79 5.19l-1.46 8.42a13.26 13.26 0 0 0 -.11 5.37 5.9 5.9 0 0 0 1.92 3.24 8.07 8.07 0 0 0 3.7 1.61 27.35 27.35 0 0 0 5.22.44h8.48l-1.52 8.8h-8.7l.89-5.06-13.48 1.77-.54 3.22a13.84 13.84 0 0 0 -.12 5.33 5.67 5.67 0 0 0 1.83 3.24 7.65 7.65 0 0 0 3.62 1.6 28.18 28.18 0 0 0 5.16.42h10.22a30 30 0 0 0 5.24-.42 11.55 11.55 0 0 0 4.2-1.6 9.7 9.7 0 0 0 3.09-3.26 15.9 15.9 0 0 0 1.83-5.34l1.56-9a11.72 11.72 0 0 0 0-5.2 5.72 5.72 0 0 0 -2.16-3.08 8.81 8.81 0 0 0 -3.82-1.5 31.06 31.06 0 0 0 -5.16-.39h-8.49l1.43-8.28h7.78l-.75 4.45 13.24-1.67.55-3.15a11.75 11.75 0 0 0 0-5.2z"></path>
+                </g>
+              </svg>
+            </div>
+
+            <a class="ml-auto text-gray-400 hover:text-white" href="https://github.com/airblade/headlessui-stimulus">
+              <span class="sr-only">GitHub repository</span>
+              <svg viewBox="0 0 16 16" fill="currentColor" class="h-5 w-5">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div>
+        <!-- masthead -->
+        <div class="mx-auto max-w-8xl">
+          <div class="px-4 sm:px-6 lg:px-8">
+            <h1 class="mt-24 text-2xl font-extrabold text-white sm:text-3xl md:max-w-4xl">
+              <a href="https://headlessui.com" class="hover:underline">Headless UI</a> components, ported to <a href="https://stimulus.hotwired.dev" class="hover:underline">Stimulus</a>.
+            </h1>
+            <p class="mt-4 text-lg text-gray-400">This is a demo page.  For documentation, please see the <a href="https://github.com/airblade/headlessui-stimulus" class="hover:text-white underline">GitHub repository</a>.</p>
+          </div>
+        </div>
+
+        <!-- content -->
+        <div class="mt-24 mx-auto max-w-8xl flex px-4 sm:px-6 lg:px-8">
+
+          <!-- left sidebar -->
+          <div class="hidden w-64 shrink-0 lg:block lg:pr-8">
+            <div class="sticky top-[120px]">
+              <nav class="mx-auto space-y-4 text-gray-400">
+                <a class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 hover:text-white lg:py-0 lg:px-0 lg:text-sm text-white" href="#menu">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#menu-_mobile-nav__paint0_linear)"></rect><rect x="13" y="5" width="7" height="3" rx="1.5" fill="#5B21B6"></rect><g filter="url(#menu-_mobile-nav__filter0_dd)"><rect x="5" y="9" width="15" height="10" rx="2" fill="#F5F3FF"></rect></g><defs><linearGradient id="menu-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#A855F7"></stop><stop offset="1" stop-color="#6366F1"></stop></linearGradient><filter id="menu-_mobile-nav__filter0_dd" x="2" y="7" width="21" height="16" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Menu (Dropdown)
+                </a>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#listbox-_mobile-nav__paint0_linear)"></rect><rect x="5" y="5" width="14" height="3" rx="1.5" fill="#FFFBEB"></rect><g filter="url(#listbox-_mobile-nav__filter0_dd)"><rect x="5" y="9" width="14" height="10" rx="2" fill="#FFFBEB"></rect></g><path fill="#FCD34D" d="M5 11h14v2H5z"></path><defs><linearGradient id="listbox-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#FACC15"></stop><stop offset="1" stop-color="#F97316"></stop></linearGradient><filter id="listbox-_mobile-nav__filter0_dd" x="2" y="7" width="20" height="16" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Listbox (Select)
+                </div>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#combobox-_mobile-nav__paint0_linear_903_6)"></rect><mask id="combobox-_mobile-nav__a" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24" style="mask-type: alpha;"><rect width="24" height="24" rx="6" fill="url(#combobox-_mobile-nav__paint1_linear_903_6)"></rect></mask><g mask="url(#combobox-_mobile-nav__a)"><g filter="url(#combobox-_mobile-nav__filter0_dd_903_6)"><path d="M4 7a1 1 0 011-1h14a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1V7z" fill="#fff"></path><path d="M5 5.5A1.5 1.5 0 003.5 7v3A1.5 1.5 0 005 11.5h14a1.5 1.5 0 001.5-1.5V7A1.5 1.5 0 0019 5.5H5z" stroke="#000" stroke-opacity="0.04"></path></g><path d="M6.5 8.5h4" stroke="#64748B" stroke-linecap="round"></path><path opacity="0.2" d="M16.5 8.5h1" stroke="#0F172A" stroke-linecap="round"></path><g filter="url(#combobox-_mobile-nav__filter1_dd_903_6)"><path d="M4 14a1 1 0 011-1h14a1 1 0 011 1v11a1 1 0 01-1 1H5a1 1 0 01-1-1V14z" fill="#fff"></path><path d="M5 12.5A1.5 1.5 0 003.5 14v11A1.5 1.5 0 005 26.5h14a1.5 1.5 0 001.5-1.5V14a1.5 1.5 0 00-1.5-1.5H5z" stroke="#000" stroke-opacity="0.04"></path></g><path opacity="0.3" d="M6.5 15.5h7M6.5 18.5h6M6.5 21.5h3" stroke="#0F172A" stroke-linecap="round"></path></g><defs><linearGradient id="combobox-_mobile-nav__paint0_linear_903_6" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#AAF0F4"></stop><stop offset="1" stop-color="#10B981"></stop></linearGradient><linearGradient id="combobox-_mobile-nav__paint1_linear_903_6" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#EC4899"></stop><stop offset="1" stop-color="#F43F5E"></stop></linearGradient><filter id="combobox-_mobile-nav__filter0_dd_903_6" x="0" y="3" width="24" height="13" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_903_6"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow_903_6" result="effect2_dropShadow_903_6"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow_903_6" result="shape"></feBlend></filter><filter id="combobox-_mobile-nav__filter1_dd_903_6" x="0" y="10" width="24" height="21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_903_6"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow_903_6" result="effect2_dropShadow_903_6"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow_903_6" result="shape"></feBlend></filter></defs></svg>
+                  Combobox (Autocomplete)
+                </div>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#switch-_mobile-nav__paint0_linear)"></rect><rect x="4" y="7" width="16" height="10" rx="5" fill="#0F766E"></rect><rect x="11" y="8" width="8" height="8" rx="4" fill="#F0FDFA"></rect><defs><linearGradient id="switch-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#4ADE80"></stop><stop offset="1" stop-color="#14B4C6"></stop></linearGradient></defs></svg>
+                  Switch (Toggle)
+                </div>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#disclosure-_mobile-nav__paint0_linear)"></rect><g filter="url(#disclosure-_mobile-nav__filter0_dd)"><rect x="5" y="5" width="14" height="14" rx="2" fill="#FAF5FF"></rect></g><path d="M9 11l3 3 3-3" stroke="#A855F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><defs><linearGradient id="disclosure-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#D946EF"></stop><stop offset="1" stop-color="#9333EA"></stop></linearGradient><filter id="disclosure-_mobile-nav__filter0_dd" x="2" y="3" width="20" height="20" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Disclosure
+                </div>
+                <a class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 hover:text-white lg:py-0 lg:px-0 lg:text-sm text-gray-400" href="#dialog">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#dialog-_mobile-nav__paint0_linear)"></rect><g filter="url(#dialog-_mobile-nav__filter0_dd)"><rect x="5" y="6" width="14" height="12" rx="2" fill="#EFF6FF"></rect></g><defs><linearGradient id="dialog-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#38BDF8"></stop><stop offset="1" stop-color="#6366F1"></stop></linearGradient><filter id="dialog-_mobile-nav__filter0_dd" x="2" y="4" width="20" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Dialog (Modal)
+                </a>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#popover-_mobile-nav__paint0_linear)"></rect><g filter="url(#popover-_mobile-nav__filter0_dd)"><path d="M5 9a2 2 0 012-2h10a2 2 0 012 2v6a2 2 0 01-2 2h-2.586a1 1 0 00-.707.293L12 19l-1.707-1.707A1 1 0 009.586 17H7a2 2 0 01-2-2V9z" fill="#FFF7ED"></path></g><defs><linearGradient id="popover-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#FB923C"></stop><stop offset="1" stop-color="#DB2777"></stop></linearGradient><filter id="popover-_mobile-nav__filter0_dd" x="2" y="5" width="20" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Popover
+                </div>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#radio-group-_mobile-nav__paint0_linear)"></rect><circle cx="12" cy="12" r="7" fill="#155E75"></circle><circle cx="12" cy="12" r="3" fill="#ECFEFF"></circle><defs><linearGradient id="radio-group-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#39D0DD"></stop><stop offset="1" stop-color="#0EA5E9"></stop></linearGradient></defs></svg>
+                  Radio Group
+                </div>
+                <div class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 lg:py-0 lg:px-0 lg:text-sm text-gray-600">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#tabs-_mobile-nav__paint0_linear)"></rect><rect x="2" y="9" width="20" height="6" rx="1" fill="#1E3A8A" fill-opacity="0.5"></rect><path d="M2 10a1 1 0 011-1h9v6H3a1 1 0 01-1-1v-4z" fill="#EFF6FF"></path><defs><linearGradient id="tabs-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#38BDF8"></stop><stop offset="1" stop-color="#2563EB"></stop></linearGradient></defs></svg>
+                  Tabs
+                </div>
+                <a class="flex items-center whitespace-nowrap rounded py-2 px-6 font-medium transition-colors duration-200 hover:text-white lg:py-0 lg:px-0 lg:text-sm text-gray-400" href="#transitions">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 shrink-0"><rect width="24" height="24" rx="6" fill="url(#transition-_mobile-nav__paint0_linear)"></rect><circle opacity="0.5" cx="9" cy="12" r="5" fill="#FFF1F2"></circle><g filter="url(#transition-_mobile-nav__filter0_dd)"><circle cx="15" cy="12" r="5" fill="#FFF1F2"></circle></g><defs><linearGradient id="transition-_mobile-nav__paint0_linear" x1="0" y1="0" x2="24.053" y2="0.053" gradientUnits="userSpaceOnUse"><stop stop-color="#EC4899"></stop><stop offset="1" stop-color="#F43F5E"></stop></linearGradient><filter id="transition-_mobile-nav__filter0_dd" x="7" y="5" width="16" height="16" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"></feColorMatrix><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="1.5"></feGaussianBlur><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix><feBlend in2="effect1_dropShadow" result="effect2_dropShadow"></feBlend><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"></feBlend></filter></defs></svg>
+                  Transitions
+                </a>
+              </nav>
+            </div>
+          </div>
+
+          <!-- main -->
+          <main class="flex min-w-0 flex-1">
+            <div class="mr-auto min-w-9 max-w-[800px]">
+
+              <!-- menu -->
+              <div id="menu">
+                <h1 class="text-white text-3xl font-extrabold">Menu (Dropdown)</h1>
+                <p class="mt-4 text-gray-400 text-lg">Menus offer an easy way to build custom, accessible dropdown components with robust support for keyboard navigation.</p>
+
+                <div class="aspect-[1.618/1] my-8 mx-auto rounded-xl bg-gradient-to-r to-indigo-500 from-purple-500 flex justify-center">
+                  <div
+                    class="w-56 text-right mt-16"
+                    data-controller="menu"
+                    data-menu-active-class="bg-violet-500 text-white"
+                  >
+                    <div class="relative inline-block text-left">
+                      <div>
+                        <button
+                          class="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                          id="headlessui-menu-button-:R6:"
+                          type="button"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          aria-controls="headlessui-menu-items-:r0:"
+                          data-menu-target="button"
+                          data-action="click->menu#toggle keydown->menu#keydownButton"
+                        >
+                          Options
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100">
+                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <div
+                        class="hidden absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform opacity-100 scale-100"
+                        aria-labelledby="headlessui-menu-button-:R6:"
+                        id="headlessui-menu-items-:r0:"
+                        role="menu"
+                        tabindex="0"
+                        data-menu-target="menuItems"
+                        data-action="keydown->menu#keydownItems"
+                      >
+                        <div class="px-1 py-1 " role="none">
+                          <a
+                            href="#edit"
+                            class="block text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm focus:outline-none"
+                            role="menuitem"
+                            tabindex="-1"
+                            data-menu-target="menuItem"
+                            data-action="mouseover->menu#activate"
+                          >
+                            <svg class="mr-2 h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2">
+                              </path>
+                            </svg>
+                            Edit
+                          </a>
+                          <a
+                            href="#duplicate"
+                            class="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm focus:outline-none"
+                            role="menuitem"
+                            tabindex="-1"
+                            data-menu-target="menuItem"
+                            data-action="mouseover->menu#activate"
+                          >
+                            <svg class="mr-2 h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 4H12V12H4V4Z" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2"></path>
+                              <path d="M8 8H16V16H8V8Z" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2"></path>
+                            </svg>
+                            Duplicate
+                          </a>
+                        </div>
+                        <div class="px-1 py-1" role="none">
+                          <a
+                            class="opacity-50 text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm focus:outline-none"
+                            role="menuitem"
+                            tabindex="-1"
+                            data-menu-target="menuItem"
+                            data-action="mouseover->menu#activate"
+                            disabled
+                          >
+                            <svg class="mr-2 h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <rect x="5" y="8" width="10" height="8" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2"></rect>
+                              <rect x="4" y="4" width="12" height="4" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2"></rect>
+                              <path d="M8 12H12" stroke="#A78BFA" stroke-width="2"></path>
+                            </svg>
+                            Archive
+                          </a>
+                          <a
+                            href="#move"
+                            class="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm focus:outline-none"
+                            role="menuitem"
+                            tabindex="-1"
+                            data-menu-target="menuItem"
+                            data-action="mouseover->menu#activate"
+                          >
+                            <svg class="mr-2 h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10 4H16V10" stroke="#A78BFA" stroke-width="2"></path>
+                              <path d="M16 4L8 12" stroke="#A78BFA" stroke-width="2"></path>
+                              <path d="M8 6H4V16H14V12" stroke="#A78BFA" stroke-width="2"></path>
+                            </svg>
+                            Move
+                          </a>
+                        </div>
+                        <div class="px-1 py-1" role="none">
+                          <a
+                            href="#delete"
+                            class="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm focus:outline-none"
+                            role="menuitem"
+                            tabindex="-1"
+                            data-menu-target="menuItem"
+                            data-action="mouseover->menu#activate"
+                          >
+                            <svg class="mr-2 h-5 w-5 text-violet-400" aria-hidden="true" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <rect x="5" y="6" width="10" height="10" fill="#EDE9FE" stroke="#A78BFA" stroke-width="2"></rect>
+                              <path d="M3 6H17" stroke="#A78BFA" stroke-width="2"></path>
+                              <path d="M8 6V4H12V6" stroke="#A78BFA" stroke-width="2"></path>
+                            </svg>
+                            Delete
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- dialog -->
+              <div id="dialog" class="mt-24">
+                <h1 class="text-white text-3xl font-extrabold">Dialog (Modal)</h1>
+                <p class="mt-4 text-gray-400 text-lg">A fully-managed, renderless dialog component jam-packed with accessibility and keyboard features, perfect for building completely custom modal and dialog windows for your next application.</p>
+
+                <div class="relative aspect-[1.618/1] my-8 mx-auto rounded-xl bg-gradient-to-r to-indigo-500 from-sky-400 flex justify-center items-center" id="canvas">
+                  <div
+                    data-controller="dialog"
+                    data-dialog-hidden-class="hidden"
+                    data-dialog-open-value="true"
+                    class="flex items-center justify-center"
+                  >
+                    <button
+                      type="button"
+                      class="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                      data-action="dialog#open"
+                    >
+                      Open dialog
+                    </button>
+                    <div
+                      class="absolute w-full h-full rounded-xl bg-black/30"
+                      data-dialog-target="backdrop"
+                      aria-hidden="true"
+                      data-transition-enter="ease-out duration-300"
+                      data-transition-enter-start="opacity-0"
+                      data-transition-enter-end="opacity-100"
+                      data-transition-leave="ease-in duration-200"
+                      data-transition-leave-start="opacity-100"
+                      data-transition-leave-end="opacity-0"
+                    ></div>
+                    <div
+                      data-dialog-target="panel"
+                      data-action="keydown->dialog#keydown"
+                      class="hidden absolute focus:outline-none"
+                      tabindex="0"
+                      data-transition-enter="ease-out duration-300"
+                      data-transition-enter-start="opacity-0 scale-95"
+                      data-transition-enter-end="opacity-100 scale-100"
+                      data-transition-leave="ease-in duration-200"
+                      data-transition-leave-start="opacity-100 scale-100"
+                      data-transition-leave-end="opacity-0 scale-95"
+                    >
+                      <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all opacity-100 scale-100">
+                          <h3
+                            class="text-lg font-medium leading-6 text-gray-900"
+                            data-dialog-target="title"
+                          >
+                            Payment successful
+                          </h3>
+                          <div class="mt-2">
+                            <p
+                              class="text-sm text-gray-500"
+                              data-dialog-target="description"
+                            >
+                              Your <a href="#" class="underline">payment</a> has been successfully submitted. We've sent you an email with all of the details of <a href="#" class="underline">your order</a>.
+                            </p>
+                          </div>
+                          <div class="mt-4">
+                            <button
+                              type="button"
+                              class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                              data-action="dialog#close"
+                              data-dialog-target="initialFocus"
+                            >
+                              Got it, thanks!
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- transitions -->
+              <div id="transitions" class="mt-24">
+                <h1 class="text-white text-3xl font-extrabold">Transitions</h1>
+                <p class="mt-4 text-gray-400 text-lg">Transitions are supported by each component.  You can add enter/leave transitions to conditionally rendered elements, using CSS classes to control the actual transition styles in the different stages of the transition.</p>
+                <p class="mt-4 text-gray-400">Specify the transitions you want by adding data attributes to the appropriate elements.</p>
+              </div>
+            </div>
+          </main>
+
+          <!-- right sidebar -->
+          <div class="hidden w-64 shrink-0 lg:block lg:pr-8">
+          </div>
+        </div>
+
+        <!-- footer -->
+        <div class="mx-auto max-w-8xl">
+          <div class="px-4 py-16 sm:px-6 lg:px-8">
+            <footer class="flex items-center justify-center space-x-2 border-t border-gray-800 pt-10">
+              <p class="text-xs font-semibold text-center leading-5 tracking-wide text-gray-400">
+                A project by <a href="https://github.com/airblade" class="hover:text-white">@airblade</a>.  Released under the MIT licence.
+                <br>
+                Please note this is not endorsed by, associated with, nor supported by Tailwind Labs or 37signals.  I really like Tailwind and Stimulus though :)
+                <br>
+                The Headless UI, Stimulus, and GitHub logos are copyright Tailwind Labs, 37signals, and GitHub respectively.
+              </p>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
