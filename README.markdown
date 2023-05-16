@@ -1,5 +1,7 @@
 # Headless UI - Stimulus
 
+Please see the [demo page](https://airblade.github.io/headlessui-stimulus) for some examples.
+
 Status: implementing the components as I need them.  Just started and a long way to go :)
 
 This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Headless UI's components](https://headlessui.com).
