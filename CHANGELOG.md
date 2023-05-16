@@ -1,7 +1,7 @@
 # CHANGELOG
 
 
-## Unreleased
+## v0.0.3 (16 May 2023)
 
 * Add Dialog (Modal) component.
 * Complete Menu (Dropdown) component.

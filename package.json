@@ -1,6 +1,6 @@
 {
   "name": "headlessui-stimulus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Stimulus components for Headless UI",
   "author": "Andrew Stewart <boss@airbladesoftware.com>",
   "type": "module",
