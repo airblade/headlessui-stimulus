@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import { enter, leave } from 'el-transition'
+import { keyboardFocusableElements, uid } from './util.js'
 
 export default class extends Controller {
 
@@ -60,7 +61,7 @@ export default class extends Controller {
     if (this.hasTitleTarget) {
       let id = this.titleTarget.id
       if (id == '') {
-        id = this.uid()
+        id = uid()
         this.titleTarget.id = id
       }
       this.element.setAttribute('aria-labelledby', id)
@@ -69,7 +70,7 @@ export default class extends Controller {
     if (this.hasDescriptionTarget) {
       let id = this.descriptionTarget.id
       if (id == '') {
-        id = this.uid()
+        id = uid()
         this.descriptionTarget.id = id
       }
       this.element.setAttribute('aria-describedby', id)
@@ -120,23 +121,7 @@ export default class extends Controller {
 
   focusablePanelElements() {
     // Or we could introduce `data-dialog-target="focusable"`.
-    return this.keyboardFocusableElements(this.panelTarget)
-  }
-
-  keyboardFocusableElements(element) {
-    return [
-      ...element.querySelectorAll(
-        'a[href], button, input:not([type="hidden"]), select, textarea, summary, [tabindex]:not([tabindex="-1"])'
-      )
-    ].filter(el =>
-      !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden')
-    )
-  }
-
-  uid() {
-    return String(
-      Date.now().toString(32) + Math.random().toString(16)
-    ).replace(/\./g, '')
+    return keyboardFocusableElements(this.panelTarget)
   }
 
 }
