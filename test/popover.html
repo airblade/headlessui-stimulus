@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "@hotwired/stimulus": "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.1/dist/stimulus.js",
+        "el-transition": "https://ga.jspm.io/npm:el-transition@0.0.7/index.js",
+        "headlessui-stimulus": "../src/index.js"
+      }
+    }
+    </script>
+
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
+    <script type="module">
+      import { Application } from '@hotwired/stimulus'
+      import { Popover } from 'headlessui-stimulus'
+
+      const application = Application.start()
+      application.register('popover', Popover)
+      application.debug = true
+    </script>
+  </head>
+
+  <body>
+    <div class="m-8 flex justify-evenly items-center">
+      <div
+        class="relative"
+        data-controller="popover"
+        data-action="keydown.esc->popover#close"
+      >
+        <button
+          type="button"
+          class="rounded border border-orange-200 px-3 py-2 hover:border-orange-700"
+          data-popover-target="button"
+          data-action="popover#toggle"
+        >
+          <span>Solutions</span>
+        </button>
+        <div
+          class="fixed inset-0 bg-black opacity-30 hidden"
+          data-popover-target="overlay"
+          data-action="click->popover#close"
+        ></div>
+        <div
+          class="absolute z-10 mt-3 hidden"
+          data-popover-target="panel"
+          data-action="keydown->popover#keydownPanel"
+        >
+          <div class="overflow-hidden rounded-lg w-48 px-4 bg-orange-200">
+            <a href="#" class="block my-2 underline">Some link</a>
+            <a href="#" class="block my-2 underline">Another link</a>
+            <div class="my-2">A non-link thing here</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <select>
+          <option>Foo</option>
+          <option>Bar</option>
+          <option>Baz</option>
+        </select>
+      </div>
+    </div>
+  </body>
+</html>

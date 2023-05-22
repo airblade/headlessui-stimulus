@@ -12,7 +12,7 @@ This is a set of [Stimulus](https://stimulus.hotwired.dev) controllers for [Head
 - [ ] Switch (Toggle)
 - [ ] Disclosure
 - [x] [Dialog (Modal)](#dialog-modal)
-- [ ] Popover
+- [x] [Popover](#popover)
 - [ ] Radio Group
 - [ ] Tabs
 - [x] [Transitions](#transitions)
@@ -144,6 +144,62 @@ You can configure your dialog with the following attributes.  Declare them on th
 | unmount | `false` | On closing the dialog, whether to remove it from the DOM (`true`) or hide it (`false`). |
 
 You can specify transitions on the backdrop and the panel.
+
+
+## Popover
+
+See [Headless UI: Popover](https://headlessui.com/react/popover).
+
+Use the following markup (the classes and ARIA attributes are omitted for clarity).
+
+```html
+<div data-controller="popover" data-action="keydown.esc->popover#close">
+    <button
+        type="button"
+        data-popover-target="button"
+        data-action="popover#toggle"
+    >
+        ...
+    </button>
+
+    <!-- optional -->
+    <div data-popover-target="overlay" data-action="click->popover#close"></div>
+
+    <div data-popover-target="panel" data-action="keydown->popover#keydownPanel">
+        ...
+    </div>
+</div>
+```
+
+To open the popover:
+
+- either call `popover#open` on the controller;
+- or set `data-popover-open-value="true"` on the controller's element.
+
+To close the popover:
+
+- either call `popover#close` on the controller;
+- or set `data-popover-open-value="false"` on the controller's element.
+- or <kbd>Tab</kbd> out of the panel;
+- or click outside the panel;
+- or press <kbd>Escape</kbd>.
+
+When the popover opens, the panel does not receive focus until you <kbd>Tab</kbd> into it.  If you would prefer the first focusable element in the panel to receive focus when the panel opens, set the `data-popover-focus-panel="true"` data attribute on the controller's element.
+
+When the popover closes (unless you <kbd>Tab</kbd> out), focus returns to the button target.  If you want another element to receive focus, set the `data-popover-focus-on-close-value="..."`.  The value should be a CSS selector.
+
+You can configure your popover with the following attributes.  Declare them on the controller as `data-popover-[name]-value`.
+
+| Name | Default | Description |
+|--|--|--|
+| open | `false` | Whether the popover is open (`true`) or closed (`false`). |
+| focus-panel | `false` | On opening the popover, whether to focus the panel's first focusable element. |
+| focus-on-close | "" | On closing the popover (except by using <kbd>Tab</kbd>), the element to focus, expressed as a CSS selector.  `""` focuses the button target. |
+| unmount | `false` | On closing the popover, whether to remove it from the DOM (`true`) or hide it (`false`). |
+
+You can specify transitions on the overlay and the panel.
+
+Popover groups are not supported yet (because [I'm not sure how they are supposed to behave](https://github.com/tailwindlabs/headlessui/discussions/2503).)
 
 
 ## Transitions

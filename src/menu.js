@@ -7,7 +7,7 @@ export default class extends Controller {
   static values  = {index: Number}
   static classes = ['active', 'inactive']
 
-  connect() {
+  initialize() {
     this.boundCloseOnClickOutsideElement = this.closeOnClickOutsideElement.bind(this)
   }
 
