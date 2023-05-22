@@ -1,6 +1,11 @@
 # CHANGELOG
 
 
+## v0.0.4 (22 May 2023)
+
+* Add Popper component.
+
+
 ## v0.0.3 (16 May 2023)
 
 * Add Dialog (Modal) component.
