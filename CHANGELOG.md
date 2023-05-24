@@ -1,6 +1,11 @@
 # CHANGELOG
 
 
+## Unreleased
+
+* Dialog: allow for no backdrop.
+
+
 ## v0.0.4 (22 May 2023)
 
 * Add Popper component.

@@ -81,7 +81,7 @@ export default class extends Controller {
     this.element.dataset.headlessuiState = 'open'
     this.panelTarget.dataset.headlessuiState = 'open'
 
-    enter(this.backdropTarget)
+    if (this.hasBackdropTarget) enter(this.backdropTarget)
     enter(this.panelTarget)
 
     this.initialFocusElement()?.focus()
@@ -94,7 +94,7 @@ export default class extends Controller {
 
     window.removeEventListener('click', this.boundCloseOnClickOutsideElement)
 
-    leave(this.backdropTarget)
+    if (this.hasBackdropTarget) leave(this.backdropTarget)
     leave(this.panelTarget).then(() => {
       if (this.unmountValue) this.element.remove()
     })
