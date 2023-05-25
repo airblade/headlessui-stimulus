@@ -50,3 +50,10 @@ test('shift+tab when dialog is open focuses previous item', async ({ page }) => 
   await page.keyboard.press('Shift+Tab')
   await expect(page.getByRole('link', {name: 'your order'})).toBeFocused()
 })
+
+
+test('toggles classes on html element', async ({ page }) => {
+  await expect(page.locator('html')).toHaveClass('overflow-hidden')
+  await page.keyboard.press('Escape')
+  await expect(page.locator('html')).not.toHaveClass('overflow-hidden')
+})

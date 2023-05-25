@@ -3,6 +3,7 @@
 
 ## Unreleased
 
+* Dialog: enable toggling of classes on `<html>` element.
 * Dialog: allow for no backdrop.
 
 

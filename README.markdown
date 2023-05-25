@@ -136,6 +136,8 @@ If your dialog has a title and a description, use `data-dialog-target="title"` a
 
 When the dialog opens, the panel's first focusable element by DOM order receives focus.  To specify that a different element should receive focus initially, give it the data attribute `data-dialog-target="initialFocus"`.
 
+To toggle class(es) on the `<html>` element when the dialog opens/closes, use `data-dialog-html-open-class="..."` where the value is a space-separated list of classes.
+
 You can configure your dialog with the following attributes.  Declare them on the controller as `data-dialog-[name]-value`.
 
 | Name | Default | Description |

@@ -5,6 +5,7 @@ import { keyboardFocusableElements, uid } from './util.js'
 export default class extends Controller {
 
   static targets = ['panel', 'backdrop', 'title', 'description', 'initialFocus']
+  static classes = ['htmlOpen']
   static values  = { open: Boolean, unmount: Boolean }
 
   // Bind the outside-click handler in initialize() rather than connect()
@@ -81,6 +82,7 @@ export default class extends Controller {
     this.element.dataset.headlessuiState = 'open'
     this.panelTarget.dataset.headlessuiState = 'open'
 
+    if (this.hasHtmlOpenClass) document.documentElement.classList.add(...this.htmlOpenClasses)
     if (this.hasBackdropTarget) enter(this.backdropTarget)
     enter(this.panelTarget)
 
@@ -94,6 +96,7 @@ export default class extends Controller {
 
     window.removeEventListener('click', this.boundCloseOnClickOutsideElement)
 
+    if (this.hasHtmlOpenClass) document.documentElement.classList.remove(...this.htmlOpenClasses)
     if (this.hasBackdropTarget) leave(this.backdropTarget)
     leave(this.panelTarget).then(() => {
       if (this.unmountValue) this.element.remove()
